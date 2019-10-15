@@ -1,0 +1,48 @@
+.collapseButton {
+    vertical-align: text-top;
+  }
+  
+  th, td {
+    padding:  10px;
+  }
+  tr{
+    background: rgb(243, 243, 243);
+  }
+  tbody tr:nth-child(2){
+    background: white;
+  }
+  tbody tr tbody tr:nth-child(2){
+    background: rgb(243, 243, 243);
+  }
+  #hidden {
+    display: none;
+  }
+  
+  .Table {
+    margin-left: 12px;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: -webkit-fill-available;
+  }
+  
+
+  
+  table th {
+    /* background-color: #092168; */
+    background-color: darkgray;
+  }
+  
+  table th, td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+
+input{
+  width: 100%;
+    min-width: 75px;
+}

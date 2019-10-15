@@ -1,0 +1,73 @@
+<div class="container">
+    <br><br><br><br>
+    <div class="row">
+        <table> 
+            <col style="width:2%">
+            <col style="width:5%">
+            <col style="width:15%">
+            <col style="width:15%">
+            <col style="width:15%">
+            <col style="width:15%">
+            <col style="width:15%">
+            <thead>
+                    <tr>
+                        <th></th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Origin</th>
+                        <th>Contact</th>
+                        <th>Team</th>
+                        <th>DOB</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th><input type="text"></th>
+                        <th><input type="text"></th>
+                        <th><input type="text"></th>
+                        <th><input type="text"></th>
+                        <th><input type="text"></th>
+                        <th><input type="text"></th>
+                    </tr>
+            </thead>
+    
+            <tbody *ngFor="let d of listdata">
+                    <tr>
+                        <td id="collapseButton" (click)="collapse($event)">+</td>
+                        <td>{{d.id}}</td>
+                        <td>{{d.name}}</td>
+                        <td>jtkir.org</td>
+                        <td>James Tiberius Kirk</td>
+                        <td>SC937-0176CEC</td>
+                        <td>jtkirk.org</td>
+                    </tr> 
+                    <tr id="hidden">
+                        <td></td>
+                        <td colspan=4>
+                            <table>
+                                <thead>
+                                        <tr>
+                                            <th>Skill id</th>
+                                            <th>Skill name</th>
+                                            <th>Rating</th>
+                                        </tr>
+                                        <tr>
+                                            <th><input type="text"/></th>
+                                            <th><input type="text"/></th>
+                                            <th><input type="text"/></th>   
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        <tr *ngFor="let l of listdata;index as i;">
+                                            <td>{{ l.id    }}</td>
+                                            <td>{{ l.name  }}</td>
+                                            <td>{{ i + 009 }}</td>
+                                        </tr>
+                                </tbody>
+                                
+                            </table>
+                        </td>
+                    </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
