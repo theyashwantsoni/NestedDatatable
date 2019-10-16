@@ -3,7 +3,7 @@
     <div class="row">
         <table> 
             <col style="width:2%">
-            <col style="width:5%">
+            <col style="width:15%">
             <col style="width:15%">
             <col style="width:15%">
             <col style="width:15%">
@@ -12,8 +12,8 @@
             <thead>
                     <tr>
                         <th></th>
-                        <th>Id</th>
-                        <th>Name</th>
+                        <th (click)="sort(direction,'id')">Id</th>
+                        <th (click)="sort(direction,'name')">Name</th>
                         <th>Origin</th>
                         <th>Contact</th>
                         <th>Team</th>
@@ -21,8 +21,10 @@
                     </tr>
                     <tr>
                         <th></th>
-                        <th><input type="text"></th>
-                        <th><input type="text"></th>
+                        <th><input type="text" (keyup)="filterArray()" [(ngModel)]="idTextSearch"></th>
+                        <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="nameTextSearch"></th>
+                        <!-- <th><input type="text" (keyup)="searchViaCol($event, 'id')"></th>
+                        <th><input type="text" (keyup)="searchViaCol($event, 'name')" ></th> -->
                         <th><input type="text"></th>
                         <th><input type="text"></th>
                         <th><input type="text"></th>
@@ -30,44 +32,33 @@
                     </tr>
             </thead>
     
-            <tbody *ngFor="let d of listdata">
-                    <tr>
+            <!-- <tbody *ngFor="let d of listdata  | filter : searchText : key;index as i"> -->
+                <tbody *ngFor="let d of filtered; index as i">
+                    <tr  *ngIf="i >= startIndex && i <= endIndex">
                         <td id="collapseButton" (click)="collapse($event)">+</td>
-                        <td>{{d.id}}</td>
-                        <td>{{d.name}}</td>
-                        <td>jtkir.org</td>
-                        <td>James Tiberius Kirk</td>
-                        <td>SC937-0176CEC</td>
-                        <td>jtkirk.org</td>
+                        <td> {{d.id}} </td>
+                        <td> {{d.name}} </td>
+                        <td> jtkir.org </td>
+                        <td> James Tiberius Kirk </td>
+                        <td> SC937-0176CEC </td>
+                        <td> jtkirk.org </td>
                     </tr> 
-                    <tr id="hidden">
+                    <tr *ngIf="i >= startIndex && i <= endIndex" id="hidden">
                         <td></td>
                         <td colspan=4>
-                            <table>
-                                <thead>
-                                        <tr>
-                                            <th>Skill id</th>
-                                            <th>Skill name</th>
-                                            <th>Rating</th>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="text"/></th>
-                                            <th><input type="text"/></th>
-                                            <th><input type="text"/></th>   
-                                        </tr>
-                                </thead>
-                                <tbody>
-                                        <tr *ngFor="let l of listdata;index as i;">
-                                            <td>{{ l.id    }}</td>
-                                            <td>{{ l.name  }}</td>
-                                            <td>{{ i + 009 }}</td>
-                                        </tr>
-                                </tbody>
-                                
-                            </table>
+                            <app-nested-table [dataItems]="listdata"></app-nested-table>
                         </td>
                     </tr>
             </tbody>
           </table>
+          <div *ngIf="pages">
+            <div *ngIf="pages.length > 1" class="pagination_div">
+                <span style="padding-right:20px;float:left">Showing {{startIndex + 1}} to {{endIndex +1}}</span>
+                <span style="padding:0 5px;float:left" *ngFor="let page of pages">
+                    <span *ngIf="page === currentPage" href="" (click)="setCurrent($event,page)" class="page_number">{{page}}</span>
+                    <a *ngIf="page !== currentPage" href="" (click)="setCurrent($event,page)" class="page_number_anchor">{{page}}</a>
+                </span>
+            </div>
+         </div>
     </div>
 </div>

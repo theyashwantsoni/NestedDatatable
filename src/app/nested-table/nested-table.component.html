@@ -1,1 +1,31 @@
-<p>nested-table works!</p>
+<table>
+        <thead>
+                <tr>
+                    <th (click)="sort(directionN,'id')">Skill Id</th>
+                    <th (click)="sort(directionN,'name')">Skill Name</th>
+                    <th>Rating</th>
+                </tr>
+                <tr>
+                        <th><input type="text" (keyup)="filterArray()" [(ngModel)]="idTextSearchN"></th>
+                        <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="nameTextSearchN"></th>
+                    <th><input type="text"/></th>   
+                </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let f of filteredN;index as i;">
+                    <td> {{ f.id    }} </td>
+                    <td> {{ f.name  }} </td>
+                    <td> {{ i + 8387987009 }} </td>
+                </tr>
+        </tbody>
+        
+</table>
+<div *ngIf="pagesN">
+    <div *ngIf="pagesN.length > 1" class="pagination_div">
+        <span style="padding-right:20px;float:left">Showing {{startIndexN + 1}} to {{endIndexN +1}}</span>
+        <span style="padding:0 5px;float:left" *ngFor="let page of pagesN">
+            <span *ngIf="page === currentPageN" href="" (click)="setCurrent($event,page)" class="page_number">{{page}}</span>
+            <a *ngIf="page !== currentPageN" href="" (click)="setCurrent($event,page)" class="page_number_anchor">{{page}}</a>
+        </span>
+    </div>
+</div>

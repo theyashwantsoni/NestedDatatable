@@ -11,12 +11,14 @@ import { AppRoutingModule }     from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DatatableComponent } from './datatable/datatable.component';
 import { NestedTableComponent } from './nested-table/nested-table.component';
+import { SearchPipe } from './search.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     DatatableComponent,
-    NestedTableComponent
+    NestedTableComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
