@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { DatatableComponent } from './datatable/datatable.component';
 import { NestedTableComponent } from './nested-table/nested-table.component';
 import { SearchPipe } from './search.pipe';
+import { ComboBoxComponent } from './combo-box/combo-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DatatableComponent,
     NestedTableComponent,
-    SearchPipe
+    SearchPipe,
+    ComboBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -29,11 +31,12 @@ import { SearchPipe } from './search.pipe';
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas : [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

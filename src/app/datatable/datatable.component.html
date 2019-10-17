@@ -1,3 +1,6 @@
+
+<app-combo-box [list]="listdata"></app-combo-box>
+
 <div class="container">
     <br><br><br><br>
     <div class="row">
@@ -15,7 +18,7 @@
                         <th (click)="sort(direction,'id')">Id</th>
                         <th (click)="sort(direction,'name')">Name</th>
                         <th>Origin</th>
-                        <th>Contact</th>
+                        <th>Total Score</th>
                         <th>Team</th>
                         <th>DOB</th>
                     </tr>
@@ -25,10 +28,10 @@
                         <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="nameTextSearch"></th>
                         <!-- <th><input type="text" (keyup)="searchViaCol($event, 'id')"></th>
                         <th><input type="text" (keyup)="searchViaCol($event, 'name')" ></th> -->
-                        <th><input type="text"></th>
-                        <th><input type="text"></th>
-                        <th><input type="text"></th>
-                        <th><input type="text"></th>
+                        <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="originTextSearch"></th>
+                        <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="contactTextSearch"></th>
+                        <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="teamTextSearch"></th>
+                        <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="dobTextSearch"></th>
                     </tr>
             </thead>
     
@@ -38,10 +41,10 @@
                         <td id="collapseButton" (click)="collapse($event)">+</td>
                         <td> {{d.id}} </td>
                         <td> {{d.name}} </td>
-                        <td> jtkir.org </td>
-                        <td> James Tiberius Kirk </td>
-                        <td> SC937-0176CEC </td>
-                        <td> jtkirk.org </td>
+                        <td> {{ d.origin}} </td>
+                        <td> {{ d.contact}} </td>
+                        <td> {{ d.team}} </td>
+                        <td> {{ d.dob | date}} </td>
                     </tr> 
                     <tr *ngIf="i >= startIndex && i <= endIndex" id="hidden">
                         <td></td>
@@ -62,3 +65,4 @@
          </div>
     </div>
 </div>
+

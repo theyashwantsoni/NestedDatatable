@@ -1,38 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralService } from '../general.service';
 import paginate from '../pagination.util';
+import { ApiService } from '../middleware/api.service';
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
   styleUrls: ['./datatable.component.css']
 })
+
+
+
 export class DatatableComponent implements OnInit {
+  itemList = ['carrot', 'banana', 'apple', 'potato', 'tomato', 'cabbage', 'turnip', 'okra', 'onion', 'cherries', 'plum', 'mango'];
+
   listdata:any;
+  listdatanested:any;
   currentPage = 1;
   pages: Array<number>;
   startIndex: number;
   endIndex: number;
-  pageSize : number = 5;
+  pageSize : number = 10;
   maxPages : number;
   searchText : string;
   key : string;
   idTextSearch:string;
   nameTextSearch:string;
+  originTextSearch : string;
+  contactTextSearch : string;
+  teamTextSearch : string;
+  dobTextSearch : string;
   filtered : any;
   direction : string = 'asc';
   filterData : any[] = [];
-  constructor( private gs: GeneralService ) {
-	//   this.filters = { id : this.idTextSearch, name : this.nameTextSearch};
-	//   this.filters = { id : 1, name : 'n'}
+  lower:number;
+  upper:number;
 
-   }
+
+  
+  constructor( private gs: GeneralService, private as : ApiService ) {
+    this.lower = 0;
+    this.upper = 100;
+  }
 
   ngOnInit() {
-	  this.gs.getData().subscribe(data => {
-	  this.listdata = data;
-	  this.filtered = data;
+
+	  // this.gs.getData().subscribe(data => {
+	  // this.listdata = data;
+	  // this.filtered = data;
+    //   this.calculateIndexes();
+    // })
+
+
+    let payload = { 'lower':this.lower,'upper':this.upper};
+
+    this.as.anyservice(payload,'getdata').subscribe(data =>{
+      this.listdata = data;
+      this.filtered = data;
       this.calculateIndexes();
-	  })
+    })
   }
   
   collapse(arg){
@@ -65,7 +90,16 @@ export class DatatableComponent implements OnInit {
     setCurrent(e, page) {
       e.preventDefault();
       this.currentPage = page;
-      this.calculateIndexes();
+      if(this.currentPage >= (this.upper/this.pageSize)){
+        this.upper = this.currentPage * this.pageSize;
+        this.as.anyservice({'lower':this.upper,'upper':this.upper+ this.currentPage * this.pageSize},'getdata').subscribe(data =>{
+          this.listdata = [...this.listdata,...data];
+          this.filtered = [...this.listdata,...data];
+          this.calculateIndexes();
+        })
+      }else{
+        this.calculateIndexes();
+      }
     }
     sort(direction,args){
       let dir =direction;
@@ -110,12 +144,18 @@ export class DatatableComponent implements OnInit {
 		}
 	}
 	filterArray(){
-		let filters = { id : this.idTextSearch, name : this.nameTextSearch};
+		let filters = { id : this.idTextSearch, name : this.nameTextSearch, origin: this.originTextSearch, contact:this.contactTextSearch, team: this.teamTextSearch,dob:this.dobTextSearch };
 		this.filtered = this.listdata.filter((item) => {
 			  if( 
-				   ( item['id'] === undefined || ( filters.id == '' ||  filters.id === undefined ) || item['id'].toString ().toLowerCase().includes( filters.id) ) && 
+				   ( item['id']   === undefined || ( filters.id   == '' ||  filters.id   === undefined ) || item['id'].toString ().toLowerCase().includes( filters.id)  ) && 
 
-				   ( item['name'] === undefined || ( filters.name == '' ||  filters.name === undefined ) || item['name'].toString().toLowerCase().includes( filters.name) )
+           ( item['name'] === undefined || ( filters.name == '' ||  filters.name === undefined ) || item['name'].toString().toLowerCase().includes( filters.name) ) &&
+           ( item['origin']   === undefined || ( filters.origin   == '' ||  filters.origin   === undefined ) || item['origin'].toString ().toLowerCase().includes( filters.origin)  ) && 
+
+           ( item['contact'] === undefined || ( filters.contact == '' ||  filters.contact === undefined ) || item['contact'].toString().toLowerCase().includes( filters.contact) ) &&
+           ( item['team']   === undefined || ( filters.team   == '' ||  filters.team   === undefined ) || item['team'].toString ().toLowerCase().includes( filters.team)  ) && 
+
+				   ( item['dob'] === undefined || ( filters.dob == '' ||  filters.dob === undefined ) || item['dob'].toString().toLowerCase().includes( filters.dob) )
 					 
 			  ){
 				return true;

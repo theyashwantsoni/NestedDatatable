@@ -11,13 +11,14 @@
                     <th><input type="text"/></th>   
                 </tr>
         </thead>
-        <tbody>
-                <tr *ngFor="let f of filteredN;index as i;">
+        <tbody  *ngFor="let f of filteredN;index as i;">
+                <tr *ngIf="i >= startIndexN && i <= endIndexN" id="hidden">
                     <td> {{ f.id    }} </td>
                     <td> {{ f.name  }} </td>
                     <td> {{ i + 8387987009 }} </td>
                 </tr>
-        </tbody>
+        </tbody> 
+        
         
 </table>
 <div *ngIf="pagesN">
