@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { Output, EventEmitter } from '@angular/core'; 
 
 @Component({
   selector: "app-combo-box",
@@ -7,6 +8,8 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class ComboBoxComponent implements OnInit {
   @Input() list: any;
+  @Output() filterTerm = new EventEmitter<any>();
+
   // two way binding for input text
   inputItem = "";
   // enable or disable visiblility of dropdown
@@ -36,7 +39,8 @@ export class ComboBoxComponent implements OnInit {
 
   // select highlighted item when enter is pressed or any item that is clicked
   selectItem(ind) {
-    this.inputItem = this.filteredList[ind];
+    this.inputItem = this.filteredList[ind].name;
+    this.filterTerm.emit(this.inputItem)
     this.listHidden = true;
     this.selectedIndex = ind;
   }

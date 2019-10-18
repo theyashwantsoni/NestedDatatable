@@ -1,6 +1,3 @@
-
-<app-combo-box [list]="listdata"></app-combo-box>
-
 <div class="container">
     <br><br><br><br>
     <div class="row">
@@ -25,7 +22,11 @@
                     <tr>
                         <th></th>
                         <th><input type="text" (keyup)="filterArray()" [(ngModel)]="idTextSearch"></th>
-                        <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="nameTextSearch"></th>
+                        <!-- <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="nameTextSearch"></th> -->
+                        
+                        <th><app-combo-box [list]="listdata" (filterTerm)="dropDownTerm($event)"></app-combo-box>
+                        </th>
+
                         <!-- <th><input type="text" (keyup)="searchViaCol($event, 'id')"></th>
                         <th><input type="text" (keyup)="searchViaCol($event, 'name')" ></th> -->
                         <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="originTextSearch"></th>

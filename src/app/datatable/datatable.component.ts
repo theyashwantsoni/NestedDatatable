@@ -11,7 +11,6 @@ import { ApiService } from '../middleware/api.service';
 
 
 export class DatatableComponent implements OnInit {
-  itemList = ['carrot', 'banana', 'apple', 'potato', 'tomato', 'cabbage', 'turnip', 'okra', 'onion', 'cherries', 'plum', 'mango'];
 
   listdata:any;
   listdatanested:any;
@@ -34,7 +33,7 @@ export class DatatableComponent implements OnInit {
   filterData : any[] = [];
   lower:number;
   upper:number;
-
+  blabla:any;
 
   
   constructor( private gs: GeneralService, private as : ApiService ) {
@@ -135,7 +134,11 @@ export class DatatableComponent implements OnInit {
 	onFilterChange(e){
 		this.filtered = this.listdata.filter((item) => this.isMatch(item,e.target.value));
 	}
-
+  dropDownTerm(arg){
+    // console.log(arg)
+    this.nameTextSearch = arg.toString().toLowerCase();
+    this.filterArray();
+  }
 	isMatch(item,arg ) {
 		if (item instanceof Object) {
 		  return Object.keys(item).some((k) => this.isMatch(item[k],arg));
@@ -144,7 +147,8 @@ export class DatatableComponent implements OnInit {
 		}
 	}
 	filterArray(){
-		let filters = { id : this.idTextSearch, name : this.nameTextSearch, origin: this.originTextSearch, contact:this.contactTextSearch, team: this.teamTextSearch,dob:this.dobTextSearch };
+    let filters = { id : this.idTextSearch, name : this.nameTextSearch, origin: this.originTextSearch, contact:this.contactTextSearch, team: this.teamTextSearch,dob:this.dobTextSearch };
+    console.log(filters)
 		this.filtered = this.listdata.filter((item) => {
 			  if( 
 				   ( item['id']   === undefined || ( filters.id   == '' ||  filters.id   === undefined ) || item['id'].toString ().toLowerCase().includes( filters.id)  ) && 
