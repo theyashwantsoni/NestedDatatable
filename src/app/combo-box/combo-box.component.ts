@@ -18,7 +18,7 @@ export class ComboBoxComponent implements OnInit {
   selectedIndex = -1;
 
   // the list to be shown after filtering
-  filteredList: string[] = [];
+  filteredList: any[] = [];
 
   constructor() {}
 

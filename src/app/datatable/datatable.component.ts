@@ -34,11 +34,12 @@ export class DatatableComponent implements OnInit {
   lower:number;
   upper:number;
   blabla:any;
-
+  showimage:boolean ;
   
   constructor( private gs: GeneralService, private as : ApiService ) {
     this.lower = 0;
     this.upper = 100;
+    this.showimage = false
   }
 
   ngOnInit() {
@@ -58,7 +59,9 @@ export class DatatableComponent implements OnInit {
       this.calculateIndexes();
     })
   }
-  
+  showImage(arg :boolean){
+    this.showimage = arg;
+  }
   collapse(arg){
 	var cell = arg.target;
 	var row = cell.parentElement;

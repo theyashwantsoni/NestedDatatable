@@ -9,6 +9,7 @@
             <col style="width:15%">
             <col style="width:15%">
             <col style="width:15%">
+
             <thead>
                     <tr>
                         <th></th>
@@ -18,6 +19,7 @@
                         <th>Total Score</th>
                         <th>Team</th>
                         <th>DOB</th>
+                        <th>Doc</th>
                     </tr>
                     <tr>
                         <th></th>
@@ -33,6 +35,7 @@
                         <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="contactTextSearch"></th>
                         <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="teamTextSearch"></th>
                         <th><input type="text" (keyup)="filterArray()"  [(ngModel)]="dobTextSearch"></th>
+                        <th></th>
                     </tr>
             </thead>
     
@@ -46,6 +49,11 @@
                         <td> {{ d.contact}} </td>
                         <td> {{ d.team}} </td>
                         <td> {{ d.dob | date}} </td>
+                        <td>
+                                
+                            <img (click)="showImage(true)" src="./assets/image.svg">
+                            <a href="https://static.theceomagazine.net/wp-content/uploads/2018/10/15093202/elon-musk-1100x733.jpg" target="blank"><img src="./assets/document.svg"></a>
+                        </td>
                     </tr> 
                     <tr *ngIf="i >= startIndex && i <= endIndex" id="hidden">
                         <td></td>
@@ -67,3 +75,9 @@
     </div>
 </div>
 
+<div class="overlay" *ngIf="showimage">
+        <div class="overlay-image">
+            <span  (click)="showImage(false)"><i class="fa fa-times">hide</i></span>
+            <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/201904/brie_larson.jpeg?0_bln2jZe9iCW1OaBfTwLp43s4PqlmPq">
+        </div>
+</div>
